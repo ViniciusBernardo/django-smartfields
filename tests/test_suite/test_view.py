@@ -1,6 +1,6 @@
 import os, time, json
 from django.test import Client
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 try:
     from django.core.urlresolvers import reverse
@@ -33,7 +33,7 @@ class UploadingTestCase(FileBaseTestCase):
             response = c.post(url, {'video_1': fp},
                               HTTP_X_REQUESTED_WITH='XMLHttpRequest')
             self.assertEqual(response.status_code, 200)
-            status = json.loads(force_text(response.content))
+            status = json.loads(force_str(response.content))
             pk = status['pk']
         self.assertIsNotNone(pk)
         self.assertIsNotNone(status)
@@ -49,7 +49,7 @@ class UploadingTestCase(FileBaseTestCase):
             time.sleep(1)
             response = c.get(url, {'pk': pk},
                              HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-            status = json.loads(force_text(response.content))
+            status = json.loads(force_str(response.content))
         self.assertEqual(
             html_tag,
             '<video id="video_video_1" controls="controls" preload="auto" width="320" '

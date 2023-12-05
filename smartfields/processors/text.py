@@ -2,7 +2,7 @@ import time, random
 from django.contrib.sites.models import Site
 from django.utils.functional import SimpleLazyObject
 from django.utils.text import slugify
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 from smartfields.processors.base import BaseProcessor
 from smartfields.utils import apps
@@ -86,7 +86,7 @@ class SlugProcessor(UniqueProcessor):
 
     def process(self, value, **kwargs):
         kwargs.setdefault('iexact', True)
-        value = slugify(force_text(value).lower())
+        value = slugify(force_str(value).lower())
         return super(SlugProcessor, self).process(value, **kwargs)
 
 

@@ -3,7 +3,7 @@ import os, errno, uuid, threading
 from django.conf import settings
 from django.core import validators
 from django.core.files import base, temp
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from six.moves import queue as six_queue
 try:
     from django.utils.deconstruct import deconstructible
@@ -167,7 +167,7 @@ class UploadTo(object):
         if self.subfolder is not None:
             structure.append(self.subfolder)
         if self.add_pk and instance.pk is not None:
-            structure.append(force_text(instance.pk))
+            structure.append(force_str(instance.pk))
         if self.field_name is not None:
             structure.append(self.field_name)
         structure.append(self.get_filename(filename, instance))
@@ -204,7 +204,7 @@ class UploadTo(object):
         if parent_field_name is not None:
             parent = getattr(instance, parent_field_name)
             if parent is not None:
-                return force_text(parent.pk)
+                return force_str(parent.pk)
 
 
 class AsynchronousFileReader(threading.Thread):

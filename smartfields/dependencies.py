@@ -2,7 +2,7 @@ import os, datetime, inspect
 from django.core.files.base import File
 from django.core.files.storage import default_storage
 from django.db.models.fields import files, NOT_PROVIDED
-from django.utils.encoding import force_text, force_str
+from django.utils.encoding import force_str
 import six
 
 try:  # django>=3.1
@@ -313,7 +313,7 @@ class FileDependency(Dependency):
     def get_directory_name(self):
         if self.upload_to:
             return os.path.normpath(
-                force_text(datetime.datetime.now().strftime(force_str(self.upload_to))))
+                force_str(datetime.datetime.now().strftime(force_str(self.upload_to))))
         return ""
 
     def get_filename(self, filename):
